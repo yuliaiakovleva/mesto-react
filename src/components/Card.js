@@ -3,13 +3,13 @@ import Main from './Main';
 
 function Card(props) {
 
-    // function handleCardClick() {
-    //     props.onCardClick(props.card);
-    //   }  
+    function handleClick() {
+        props.onCardClick(props);
+      }  
 
     return (
         <li className="card">
-            <button className="card__button-image" type="button" onClick={props.onCardClick}>
+            <button className="card__button-image" type="button" onClick={handleClick}>
                 <img className="card__illustration" src={props.link} alt={props.name} />
             </button>
             <button className="card__button-delete" id='yulia' type="button"></button>

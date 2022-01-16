@@ -27,10 +27,12 @@ function Main(props) {
     useEffect(() => {
         api.getInitialCards()
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 setCards(data);
             })
     })
+
+
 
     return (
         <main className="content">
@@ -55,11 +57,11 @@ function Main(props) {
                         cards.map(item => {
                             return (
                                 <Card
-                                    key={item.id}
-                                    onCardClick={item.handleCardClick}
+                                    key={item._id}
                                     link={item.link}
                                     name={item.name}
                                     likes={item.likes.length}
+                                    onCardClick={props.handleCardClick}
                                 />
                             )
 

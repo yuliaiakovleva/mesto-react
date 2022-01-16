@@ -12,11 +12,11 @@ function App() {
     const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false)
     const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false)
     const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false)
-    const [selectedCard, setSelectedCard] = React.useState({})
-    
-    function handleCardClick(card) {
-        setSelectedCard(card);
-    }
+    const [selectedCard, setSelectedCard] = React.useState({
+        name: '',
+        link: ''
+    })
+
 
     function handleEditProfileClick() {
         setEditProfilePopupOpen(true);
@@ -34,18 +34,27 @@ function App() {
         // document.querySelector('#popup-card').classList.add('popup_is-opened');
     }
 
+    function handleCardClick(card) {
+        setSelectedCard(card);
+    }
+
+ 
 
     function closeAllPopups() {
         setEditProfilePopupOpen(false);
         setEditAvatarPopupOpen(false);
         setAddPlacePopupOpen(false);
-        setSelectedCard({});
+        setSelectedCard({
+            name: '',
+            link: ''
+        });
     }
+ 
 
     return (
         <>
             <Header />
-            <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onCardClick={handleCardClick}/>
+            <Main handleCardClick={handleCardClick} onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} />
             <Footer />
 
             {/* <!-- попап с редактированием профиля --> */}
@@ -115,7 +124,7 @@ function App() {
             <ImagePopup 
                 card={selectedCard}
                 onClose={closeAllPopups}
-            
+                
             />
 
 
