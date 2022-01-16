@@ -1,5 +1,4 @@
 import React from 'react';
-import App from './App';
 import api from '../utils/api'
 import Card from './Card';
 import { useEffect, useState } from 'react';
