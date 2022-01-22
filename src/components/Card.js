@@ -11,7 +11,7 @@ function Card(props) {
             <button className="card__button-image" type="button" onClick={handleClick}>
                 <img className="card__illustration" src={props.link} alt={props.name} />
             </button>
-            <button className="card__button-delete" id='yulia' type="button"></button>
+            <button className="card__button-delete" type="button"></button>
             <div className="card__container">
 
                 <p className="card__title">{props.name}</p>

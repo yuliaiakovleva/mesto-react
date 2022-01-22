@@ -9,7 +9,7 @@ import ImagePopup from './ImagePopup';
 
 function App() {
 
-    const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false)
+    const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false)
     const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false)
     const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false)
     const [selectedCard, setSelectedCard] = React.useState({
@@ -19,7 +19,7 @@ function App() {
 
 
     function handleEditProfileClick() {
-        setEditProfilePopupOpen(true);
+        setIsEditProfilePopupOpen(true);
         // document.querySelector('#popup-profile').classList.add('popup_is-opened');
     }
 
@@ -38,10 +38,10 @@ function App() {
         setSelectedCard(card);
     }
 
- 
+
 
     function closeAllPopups() {
-        setEditProfilePopupOpen(false);
+        setIsEditProfilePopupOpen(false);
         setEditAvatarPopupOpen(false);
         setAddPlacePopupOpen(false);
         setSelectedCard({
@@ -49,7 +49,7 @@ function App() {
             link: ''
         });
     }
- 
+
 
     return (
         <>
@@ -96,19 +96,19 @@ function App() {
             {/* <!-- попап с добавлением карточек --> */}
             <PopupWithForm name="popup-card" title="Новое место" isOpen={isAddPlacePopupOpen}
                 onClose={closeAllPopups}
-                children={
+                children={ 
                     <fieldset className="popup__fieldset">
-                        <label className="popup__row">
-                            <input className="popup__input popup__input_type_name" type="text" name="name" placeholder="Название"
-                                required minLength='2' maxLength='30' id="name-mesto-input" />
-                            <span className="name-mesto-input-error popup__input-error"></span>
-                        </label>
-                        <label className="popup__row">
-                            <input className="popup__input popup__input_type_info" type="url" name="link"
-                                placeholder="Ссылка на картинку" required id="url-input" />
-                            <span className="url-input-error popup__input-error"></span>
-                        </label>
-                    </fieldset>
+                    <label className="popup__row">
+                        <input className="popup__input popup__input_type_name" type="text" name="name" placeholder="Название"
+                            required minLength='2' maxLength='30' id="name-mesto-input" />
+                        <span className="name-mesto-input-error popup__input-error"></span>
+                    </label>
+                    <label className="popup__row">
+                        <input className="popup__input popup__input_type_info" type="url" name="link"
+                            placeholder="Ссылка на картинку" required id="url-input" />
+                        <span className="url-input-error popup__input-error"></span>
+                    </label>
+                </fieldset>
                 }
                 button="Создать"
             >
@@ -121,10 +121,10 @@ function App() {
             </PopupWithForm>
 
             {/* попап с картинкой на всю страницу */}
-            <ImagePopup 
+            <ImagePopup
                 card={selectedCard}
                 onClose={closeAllPopups}
-                
+
             />
 
 

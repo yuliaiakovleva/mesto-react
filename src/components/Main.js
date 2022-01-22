@@ -20,8 +20,11 @@ function Main(props) {
                 const userAvatar = data.avatar;
                 setUserAvatar(userAvatar);
             }
-            );
-    })
+            )
+            .catch((err) => {
+                console.log('Ошибка.', err)
+              })
+    }, [])
 
     useEffect(() => {
         api.getInitialCards()
@@ -29,7 +32,10 @@ function Main(props) {
                 // console.log(data);
                 setCards(data);
             })
-    })
+            .catch((err) => {
+                console.log('Ошибка.', err)
+              })
+    }, [])
 
 
 
@@ -75,8 +81,5 @@ function Main(props) {
 export default Main;
 
 
-// style={{ backgroundImage: `url(${userAvatar})` }}
-// {userName}
-// {userDescription}
 
 
