@@ -2,83 +2,61 @@ import React from 'react';
 import api from '../utils/api'
 import Card from './Card';
 import { useEffect, useState } from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext'
+
 
 function Main(props) {
 
-    const [userName, setUserName] = useState('Жак-Ив Кусто');
-    const [userDescription, setUserDescription] = useState('Исследователь океана');
-    const [userAvatar, setUserAvatar] = useState('');
-    const [cards, setCards] = useState([]);
-
-    useEffect(() => {
-        api.getUserInfo()
-            .then(data => {
-                const userName = data.name;
-                setUserName(userName);
-                const userDescription = data.about;
-                setUserDescription(userDescription);
-                const userAvatar = data.avatar;
-                setUserAvatar(userAvatar);
-            }
-            )
-            .catch((err) => {
-                console.log('Ошибка.', err)
-              })
-    }, [])
-
-    useEffect(() => {
-        api.getInitialCards()
-            .then(data => {
-                // console.log(data);
-                setCards(data);
-            })
-            .catch((err) => {
-                console.log('Ошибка.', err)
-              })
-    }, [])
-
+    const currentUser = React.useContext(CurrentUserContext);
 
 
     return (
-        <main className="content">
-            <section className="profile">
-                <div className="profile__image" style={{ backgroundImage: `url(${userAvatar})` }} >
+            <main className="content">
+                <section className="profile">
+                    <div className="profile__image" style={{ backgroundImage: `url(${currentUser.avatar})` }} >
+                        {/* сюда обработчик */}
+                        <button type="button" className="profile__image-button" onClick={props.onEditAvatar}></button>
+                    </div>
+                    <div className="input">
+                        <h1 className="input__text input__text_type_name">{currentUser.name}</h1>
+                        {/* сюда обработчик */}
+                        <button type="button" className="input__edit-btn" onClick={props.onEditProfile}></button>
+                        <p className="input__text input__text_type_info">{currentUser.about}</p>
+                    </div>
                     {/* сюда обработчик */}
-                    <button type="button" className="profile__image-button" onClick={props.onEditAvatar}></button>
-                </div>
-                <div className="input">
-                    <h1 className="input__text input__text_type_name">{userName}</h1>
-                    {/* сюда обработчик */}
-                    <button type="button" className="input__edit-btn" onClick={props.onEditProfile}></button>
-                    <p className="input__text input__text_type_info">{userDescription}</p>
-                </div>
-                {/* сюда обработчик */}
-                <button type="button" className="profile__submit-btn" onClick={props.onAddPlace}></button>
-            </section>
-            <section className="section">
-                <ul className="places">
-                    {/* <!-- сюда js будет добавлять карточки --> */}
-                    {
-                        cards.map(item => {
-                            return (
-                                <Card
-                                    key={item._id}
-                                    link={item.link}
-                                    name={item.name}
-                                    likes={item.likes.length}
-                                    onCardClick={props.handleCardClick}
-                                />
-                            )
+                    <button type="button" className="profile__submit-btn" onClick={props.onAddPlace}></button>
+                </section>
+                <section className="section">
+                    <ul className="places">
+                        {/* <!-- сюда js будет добавлять карточки --> */}
+                        {
 
-                        })
-                    }
-                </ul>
-            </section>
-        </main>
-    );
-}
+                            props.cards.map(item => {
+                                // console.log(item)
+                                return (
+                                    <Card
+                                        key={item._id}
+                                        ownerId={item.owner._id}
+                                        link={item.link}
+                                        name={item.name}
+                                        likes={item.likes}
+                                        likesNumber={item.likes.length}
+                                        onCardClick={props.handleCardClick}
+                                        onCardLike={props.onCardLike}
+                                        id={item._id}
+                                        onCardDelete={props.onCardDelete}
+                                    />
+                                )
 
-export default Main;
+                            })
+                        }
+                    </ul>
+                </section>
+            </main>
+        );
+    }
+
+    export default Main;
 
 
 

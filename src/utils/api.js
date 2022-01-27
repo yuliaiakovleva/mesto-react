@@ -42,6 +42,8 @@ class Api {
  
     };
 
+   
+
     addNewCard(data) {
         return fetch(`${this._url}/cards`, {
             method: 'POST',
@@ -55,22 +57,30 @@ class Api {
  
     }
 
-    setCardLike(cardId){
-        return fetch(`${this._url}/cards/likes/${cardId}`, {
-            method: 'PUT',
-            headers: this._headers,
-          })
-        .then(this._checkResponse)
+    // setCardLike(cardId){
+    //     return fetch(`${this._url}/cards/likes/${cardId}`, {
+    //         method: 'PUT',
+    //         headers: this._headers,
+    //       })
+    //     .then(this._checkResponse)
  
-    }
+    // }
 
-    removeCardLike(cardId){
+    // removeCardLike(cardId){
+    //     return fetch(`${this._url}/cards/likes/${cardId}`, {
+    //         method: 'DELETE',
+    //         headers: this._headers,
+    //       })
+    //     .then(this._checkResponse)
+ 
+    // }
+
+    changeLikeCardStatus(cardId, isLiked) {
         return fetch(`${this._url}/cards/likes/${cardId}`, {
-            method: 'DELETE',
+            method: `${isLiked ? 'DELETE' : 'PUT'}`,
             headers: this._headers,
           })
-        .then(this._checkResponse)
- 
+        .then(this._checkResponse) 
     }
     
     deleteCard(cardId){
@@ -82,7 +92,7 @@ class Api {
  
     }
 
-    changeAvatar({link}){
+    changeAvatar(link){
         return fetch(`${this._url}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
